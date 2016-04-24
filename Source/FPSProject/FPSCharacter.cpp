@@ -4,11 +4,25 @@
 #include "FPSCharacter.h"
 
 
-// Sets default values
+// Ctor - default
 AFPSCharacter::AFPSCharacter()
 {
    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
    PrimaryActorTick.bCanEverTick = true;
+}
+
+// Ctor - custom camera
+AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer)
+   : Super(ObjectInitializer)
+{
+   // Create a CameraComponent 
+   FirstPersonCameraComponent = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>(this, TEXT("FirstPersonCamera"));
+   FirstPersonCameraComponent->AttachParent = GetCapsuleComponent();
+
+   // Position the camera a bit above the eyes
+   FirstPersonCameraComponent->RelativeLocation = FVector(0, 0, 50.0f + BaseEyeHeight);
+   // Allow the pawn to control rotation.
+   FirstPersonCameraComponent->bUsePawnControlRotation = true;
 }
 
 // Called when the game starts or when spawned

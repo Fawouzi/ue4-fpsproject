@@ -11,8 +11,11 @@ class FPSPROJECT_API AFPSCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+   // Ctor
+	// - Default
 	AFPSCharacter();
+   // - Custom camera
+   AFPSCharacter(const FObjectInitializer& ObjectInitializer);
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,4 +39,8 @@ public:
    //clears jump flag when key is released
    UFUNCTION()
       void OnStopJump();
+
+   /** First person camera */
+   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+      UCameraComponent* FirstPersonCameraComponent;
 };
